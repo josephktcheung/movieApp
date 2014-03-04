@@ -1,0 +1,6 @@
+body {
+}
+li:hover {
+  background: yellow;
+  cursor: pointer;
+}
