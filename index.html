@@ -1,88 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html data-ng-app="movieApp" lang="en">
 <head>
+  <title>Movies</title>
   <meta charset="UTF-8">
-  <title>Movies App</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="application.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <script src="app.js"></script>
 </head>
 <body>
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Movies Lab</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Movie name" id="name">
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Year" id="year">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-  <div class="container">
-    <!-- <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h1 class="panel-title">
-            <a href="#collapse" data-toggle="collapse" data-parent="#accordion">
-              Search
-            </a>
-          </h1>
-        </div>
-        <div id="collapse" class="panel-collapse collapse in">
-          <div class="panel-body">
-            <form role="form">
-              <div class="form-group">
-                <label for="name">Movie name</label>
-                <input type="text" name="somefield" class="form-control" id="name">
-              </div>
-              <div class="form-group">
-                <label for="name">Year</label>
-                <input type="text" name="somefield" class="form-control" id="year">
-              </div>
-              <button type="submit" class="btn btn-primary">Search</button>
-            </form>            
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <div class="row">
-      <h1>Search Your Favorite Films</h1>
-      <div class="col-md-4">
-        <section>
-          <ul class="result"></ul>
-        </section>
-      </div>
-      <div class="col-md-8" id="poster"></div>
-    </div>
-  </div>
+  <main data-ng-controller="MovieController">
+    <form data-ng-submit="search()">
+      <h1>Search {{movieName}} {{movieYear}}</h1>
+      <input type="text" name="somefield" data-ng-model="movieName" placeholder="Enter a movie name">
+      <select name="movieYear" id="movieYear" data-ng-model="movieYear" data-ng-options="year for year in years"></select>
+      <button>Search</button>
+    </form>
+    <input type="checkbox" data-ng-model="fullPlot">Full plot
+    <h1>Results</h1>
+    <section class="result">
+      <ul>
+        <li data-imdbID="{{movie.imdbID}}" data-ng-repeat="movie in movies" data-ng-click="getDetails($event)">
+          {{movie.Title}}, {{movie.Year}}
+        </li>
+      </ul>
+    </section>
+    <section class="movie-detail" data-ng-show="showDetail">
+      <img data-ng-src="{{movieDetails.Poster}}">
+      <dl>
+        <dt>Plot</dt>
+        <dd>{{movieDetails.Plot}}</dd>
+      </dl>
+      <dl>
+        <dt>Actors</dt>
+        <dd>{{movieDetails.Actors}}</dd>
+      </dl>
+      <dl>
+        <dt>Runtime</dt>
+        <dd>{{movieDetails.Runtime}}</dd>
+      </dl>
+      <dl>
+        <dt>imdb Rating</dt>
+        <dd id="star"></dd>
+      </dl>
+    </section>
+  </main>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+  <script src="app.js"></script>
+  <script src="jquery.raty.js"></script>
 </body>
 </html>
-
-
-<!-- 
-
-<div class="checkbox">
-  <input type="checkbox" id="tomatoes">Tomatoes data
-</div>
-<div class="radio">
-  <label class="radio-inline">
-  <input name="plot" type="radio" id="full-plot">Full plot
-  </label>
-</div>
-<div class="radio">
-  <label class="radio-inline">
-  <input name="plot" type="radio" id="short-plot">Short plot
-  </label>
-</div>
-
- -->
