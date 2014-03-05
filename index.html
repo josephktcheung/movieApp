@@ -3,48 +3,22 @@
 <head>
   <title>Movies</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="application.css">
 </head>
 <body>
-  <main data-ng-controller="MovieController">
-    <form data-ng-submit="search()">
-      <h1>Search {{movieName}} {{movieYear}}</h1>
-      <input type="text" name="somefield" data-ng-model="movieName" placeholder="Enter a movie name">
-      <select name="movieYear" id="movieYear" data-ng-model="movieYear" data-ng-options="year for year in years"></select>
+  <main data-ng-controller="MoviePanel">
+    <form data-ng-submit="search()" autofocus="autofocus">
+      <h1>Search {{searchInput}}</h1>
+      <input type="text" name="somefield" data-ng-model="searchInput">
       <button>Search</button>
     </form>
-    <input type="checkbox" data-ng-model="fullPlot">Full plot
     <h1>Results</h1>
     <section class="result">
       <ul>
-        <li data-imdbID="{{movie.imdbID}}" data-ng-repeat="movie in movies" data-ng-click="getDetails($event)">
-          {{movie.Title}}, {{movie.Year}}
-        </li>
+        <li data-ng-repeat="movie in results">{{movie.Title}}, {{movie.Year}}</li>
       </ul>
     </section>
-    <section class="movie-detail" data-ng-show="showDetail">
-      <img data-ng-src="{{movieDetails.Poster}}">
-      <dl>
-        <dt>Plot</dt>
-        <dd>{{movieDetails.Plot}}</dd>
-      </dl>
-      <dl>
-        <dt>Actors</dt>
-        <dd>{{movieDetails.Actors}}</dd>
-      </dl>
-      <dl>
-        <dt>Runtime</dt>
-        <dd>{{movieDetails.Runtime}}</dd>
-      </dl>
-      <dl>
-        <dt>imdb Rating</dt>
-        <dd id="star"></dd>
-      </dl>
-    </section>
   </main>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
   <script src="app.js"></script>
-  <script src="jquery.raty.js"></script>
 </body>
 </html>
